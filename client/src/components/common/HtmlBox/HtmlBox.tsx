@@ -1,12 +1,12 @@
 import React from 'react';
-// import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 
 interface IProps {
   children: string;
 }
 
 const HtmlBox = (props: IProps) => (
-  <p className="html-box">{/* {ReactHtmlParser(children)} */}</p>
+  <p className="html-box">{ReactHtmlParser(props.children)}</p>
 );
 
 export default HtmlBox;

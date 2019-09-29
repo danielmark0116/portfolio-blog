@@ -11,15 +11,15 @@ app.get('/api/posts', (req, res) => {
   const data = [
     {
       id: '3498jfsud',
-      title: 'Lorem Ipsum',
+      title: 'Is it really?',
       content:
-        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur architecto dolore placeat voluptates ab aliquid sunt dolorem repellat nam quidem voluptate quis necessitatibus omnis, inventore numquam, voluptatibus illum cupiditate harum.'
+        'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.'
     },
     {
       id: '9374hgkjd',
-      title: 'Lorem Ipsum 2.0',
+      title: 'This is not what I was thinking of...',
       content:
-        'Second lorepsum polepsum wasup man. Consequatur architecto dolore placeat voluptates ab aliquid sunt dolorem repellat nam quidem voluptate quis necessitatibus omnis, inventore numquam, voluptatibus illum cupiditate harum.'
+        'On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee.'
     }
   ];
   res.json(data);
