@@ -1,6 +1,8 @@
 import React from 'react';
 import { Post } from '../../../types/post';
 
+import PostsList from '../PostsList/PostsList';
+
 interface IProps {
   postsGetAll: Function;
   posts: Post[];
@@ -19,9 +21,7 @@ class Posts extends React.Component<IProps, IState> {
 
     return (
       <div>
-        {posts.map(x => (
-          <p key={x.id}>{x.title}</p>
-        ))}
+        <PostsList posts={posts} />
       </div>
     );
   }

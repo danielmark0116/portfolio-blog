@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import NavBar from '../../features/NavBar/NavBar';
+import PageContainer from '../PageContainer/PageContainer';
 
 interface IProps {
   children: React.ReactChild;
@@ -7,10 +8,12 @@ interface IProps {
 
 const MainLayout = (props: IProps) => {
   return (
-    <div>
-      <NavBar></NavBar>
-      {props.children}
-    </div>
+    <Fragment>
+      <PageContainer>
+        <NavBar></NavBar>
+        {props.children}
+      </PageContainer>
+    </Fragment>
   );
 };
 
