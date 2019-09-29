@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Post } from './types/post';
 
 import { Switch, Route } from 'react-router-dom';
 
@@ -12,43 +11,8 @@ import AddPost from './components/pages/AddPost/AddPostPage';
 import Contact from './components/pages/Contact/ContactPage';
 import NotFound from './components/pages/NotFound/NotFoundPage';
 
-const apiUrl = 'http://localhost:8000/api/posts';
-
-interface IProps {}
-
-interface IState {
-  posts: Post[];
-}
-
-class App extends Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      posts: []
-    };
-  }
-
-  componentDidMount() {
-    const getPosts = async (): Promise<void> => {
-      try {
-        const response = await fetch(apiUrl);
-        const posts: Post[] = await response.json();
-
-        this.setState({
-          posts: posts
-        });
-      } catch (err) {
-        console.error(err);
-        console.error('Coulnd not fetch data');
-      }
-    };
-
-    getPosts();
-  }
-
+class App extends Component<{}, {}> {
   render() {
-    const { posts } = this.state;
-
     return (
       <MainLayout>
         <Switch>
