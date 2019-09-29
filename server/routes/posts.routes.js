@@ -7,4 +7,8 @@ const postController = require('../controllers/post.controller');
 // desc: get all the posts
 router.get('/posts', postController.getPosts);
 
+// GET
+// desc: get ONE the post by ID
+router.get('/post/:id', postController.getPostById);
+
 module.exports = router;

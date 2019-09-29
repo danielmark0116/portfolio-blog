@@ -1,9 +1,11 @@
 import React from 'react';
 
-const PostPage = () => {
+import PostContainer from '../../features/Post/PostContainer';
+
+const PostPage = (props: any) => {
   return (
     <div>
-      <h1>post page</h1>
+      <PostContainer id={props.match.params.id} />
     </div>
   );
 };

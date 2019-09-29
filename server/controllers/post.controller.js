@@ -11,3 +11,16 @@ exports.getPosts = async function(req, res) {
     });
   }
 };
+
+exports.getPostById = async (req, res) => {
+  try {
+    let response = await Post.findOne({ id: req.params.id });
+
+    res.json(response);
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      errorMsg: err
+    });
+  }
+};
