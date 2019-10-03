@@ -18,6 +18,12 @@ import {
 
 import { Post } from '../../../types/post';
 
+interface ownProps {
+  initPage?: number;
+  postsPerPage?: number | null;
+  pagination?: Boolean;
+}
+
 export interface stateToProps {
   posts: Post[];
   pending: Boolean;
@@ -28,7 +34,7 @@ export interface stateToProps {
   activePage: number;
   initPage?: number;
   postsPerPage?: number | null;
-  pagination: Boolean;
+  pagination?: Boolean;
 }
 
 export interface dispatchToProps {
@@ -36,7 +42,7 @@ export interface dispatchToProps {
   resetRequestData: Function;
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppState, ownProps: ownProps) => ({
   posts: selectorPostsAll(state.postsReducer),
   pending: selectorPostsPending(state.postsReducer),
   error: selectorPostsError(state.postsReducer),
@@ -44,9 +50,9 @@ const mapStateToProps = (state: AppState) => ({
   errorMsg: selectorPostsErrorMsg(state.postsReducer),
   noOfPages: selectorPageCount(state.postsReducer),
   activePage: selectorActivePage(state.postsReducer),
-  initPage: 1,
-  postsPerPage: 2,
-  pagination: true
+  initPage: ownProps.initPage,
+  postsPerPage: ownProps.postsPerPage,
+  pagination: ownProps.pagination
 });
 
 const mapDispatchToProps = (
