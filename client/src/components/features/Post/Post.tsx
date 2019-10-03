@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import PageTitle from '../../common/PageTitle/PageTitle';
 import HtmlBox from '../../common/HtmlBox/HtmlBox';
+import Author from '../../common/Author/Author';
+import Spinner from '../../common/Spinner/Spinner';
 
 import { stateToProps, dispatchToProps } from './PostContainer';
 
@@ -19,7 +21,7 @@ class Post extends Component<Props, IState> {
   render() {
     const { singlePost, pending, success, error } = this.props;
 
-    if (pending) return <p>Loading..</p>;
+    if (pending) return <Spinner></Spinner>;
 
     if (!pending && !success && error) return <p>error</p>;
 
@@ -29,6 +31,7 @@ class Post extends Component<Props, IState> {
       return (
         <div>
           <PageTitle>{singlePost.title}</PageTitle>
+          <Author>{singlePost.author}</Author>
           <HtmlBox>{singlePost.content}</HtmlBox>
         </div>
       );

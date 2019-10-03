@@ -12,6 +12,10 @@ const Post = new mongoose.Schema({
   content: {
     required: true,
     type: 'String'
+  },
+  author: {
+    type: 'String',
+    require: true
   }
 });
 
