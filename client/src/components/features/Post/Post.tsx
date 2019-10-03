@@ -34,7 +34,7 @@ class Post extends Component<Props, IState> {
           <TextBlock role="secondary">{`By: ${singlePost.author}`}</TextBlock>
           <TextBlock role="secondary">{`Added: ${new Date(
             singlePost.createdAt
-          ).valueOf()}`}</TextBlock>
+          ).toLocaleString()}`}</TextBlock>
           <HtmlBox>{singlePost.content}</HtmlBox>
         </div>
       );

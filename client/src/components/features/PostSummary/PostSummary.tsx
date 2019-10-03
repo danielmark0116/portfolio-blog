@@ -21,7 +21,7 @@ const PostSummary = (props: Post) => {
       <TextBlock role="secondary">{`By: ${author}`}</TextBlock>
       <TextBlock role="secondary">{`Added: ${new Date(
         createdAt
-      ).toDateString()}`}</TextBlock>
+      ).toLocaleString()}`}</TextBlock>
       <HtmlBox>{cutText(content, 100)}</HtmlBox>
       <Link to={`/posts/${id}`}>
         <Button variant="primary">Read more</Button>
