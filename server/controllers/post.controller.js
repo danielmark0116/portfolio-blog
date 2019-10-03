@@ -13,6 +13,29 @@ exports.getPosts = async function(req, res) {
   }
 };
 
+exports.getRange = async function(req, res) {
+  try {
+    const { startI, endI } = req.params;
+
+    let response = await Post.find()
+      .sort({ createdAt: 'desc' })
+      .skip(parseInt(startI))
+      .limit(parseInt(endI));
+
+    let postsCount = await Post.countDocuments();
+
+    res.json({
+      posts: response,
+      postsCount
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      errorMsg: err
+    });
+  }
+};
+
 exports.getPostById = async (req, res) => {
   try {
     let response = await Post.findOne({ id: req.params.id });

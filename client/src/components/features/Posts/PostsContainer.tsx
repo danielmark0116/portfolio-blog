@@ -5,13 +5,15 @@ import { AppState } from '../../../redux/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { ActionTypes } from '../../../redux/actionTypes';
 import {
-  postsFetchAll,
   selectorPostsPending,
   selectorPostsError,
   selectorPostsSuccess,
   selectorPostsErrorMsg,
-  selectorPostsAllFromLatest,
-  resetRequestData
+  resetRequestData,
+  postsFetchPage,
+  selectorPostsAll,
+  selectorPageCount,
+  selectorActivePage
 } from '../../../redux/postsRedux';
 
 import { Post } from '../../../types/post';
@@ -22,25 +24,36 @@ export interface stateToProps {
   error: Boolean;
   success: Boolean;
   errorMsg: string;
+  noOfPages: number;
+  activePage: number;
+  initPage?: number;
+  postsPerPage?: number | null;
+  pagination: Boolean;
 }
 
 export interface dispatchToProps {
-  postsGetAll: Function;
+  postsGetPage: Function;
   resetRequestData: Function;
 }
 
 const mapStateToProps = (state: AppState) => ({
-  posts: selectorPostsAllFromLatest(state.postsReducer),
+  posts: selectorPostsAll(state.postsReducer),
   pending: selectorPostsPending(state.postsReducer),
   error: selectorPostsError(state.postsReducer),
   success: selectorPostsSuccess(state.postsReducer),
-  errorMsg: selectorPostsErrorMsg(state.postsReducer)
+  errorMsg: selectorPostsErrorMsg(state.postsReducer),
+  noOfPages: selectorPageCount(state.postsReducer),
+  activePage: selectorActivePage(state.postsReducer),
+  initPage: 1,
+  postsPerPage: 2,
+  pagination: true
 });
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, ActionTypes>
 ) => ({
-  postsGetAll: () => dispatch(postsFetchAll()),
+  postsGetPage: (page: number, postsPerPage: number) =>
+    dispatch(postsFetchPage(page, postsPerPage)),
   resetRequestData: () => dispatch(resetRequestData())
 });
 

@@ -8,6 +8,10 @@ const postController = require('../controllers/post.controller');
 router.get('/posts', postController.getPosts);
 
 // GET
+// desc: get RANGE of POSTS
+router.get('/posts/range/:startI/:endI', postController.getRange);
+
+// GET
 // desc: get ONE the post by ID
 router.get('/post/:id', postController.getPostById);
 
