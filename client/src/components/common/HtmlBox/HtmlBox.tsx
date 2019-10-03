@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const HtmlBox = (props: IProps) => (
-  <p className="html-box">{ReactHtmlParser(props.children)}</p>
+  <div className="html-box">{ReactHtmlParser(props.children)}</div>
 );
 
 export default HtmlBox;

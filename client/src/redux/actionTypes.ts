@@ -2,14 +2,28 @@ import { Post } from '../types/post';
 
 export const POSTS_GET_ALL = 'POSTS_GET_ALL';
 export const POSTS_GET_ONE = 'POSTS_GET_ONE';
+export const POSTS_ADD_ONE = 'POSTS_ADD_ONE';
 export const POSTS_RESET_SINGLE_POST = 'POSTS_RESET_SINGLE_POST';
 export const POSTS_START_REQUEST = 'POSTS_START_REQUEST';
 export const POSTS_END_REQUEST = 'POSTS_END_REQUEST';
 export const POSTS_ERROR = 'POSTS_ERROR';
 
+// MISC
+export const RESET_REQUEST_DATA = 'RESET_REQUEST_DATA';
+
 interface postsGetAllActionType {
   type: typeof POSTS_GET_ALL;
   payload: Post[];
+}
+
+interface postsGetOneActionType {
+  type: typeof POSTS_GET_ONE;
+  payload: Post;
+}
+
+interface postsAddOneActionType {
+  type: typeof POSTS_ADD_ONE;
+  payload: Boolean;
 }
 
 interface postsStartRequestActionType {
@@ -25,13 +39,12 @@ interface postsErrorActionType {
   payload: string;
 }
 
-interface postsGetOneActionType {
-  type: typeof POSTS_GET_ONE;
-  payload: Post;
-}
-
 interface postsResetSinglePostActionType {
   type: typeof POSTS_RESET_SINGLE_POST;
+}
+
+interface resetRequestDataActionType {
+  type: typeof RESET_REQUEST_DATA;
 }
 
 export type ActionTypes =
@@ -40,4 +53,6 @@ export type ActionTypes =
   | postsEndRequestActionType
   | postsErrorActionType
   | postsGetOneActionType
-  | postsResetSinglePostActionType;
+  | postsResetSinglePostActionType
+  | postsAddOneActionType
+  | resetRequestDataActionType;

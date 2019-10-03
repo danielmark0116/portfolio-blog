@@ -14,6 +14,14 @@ const createActionName = (name: string) => `app/${reducerName}/${name}`;
 export const selectorPostsAll = (state: postsState): Post[] => {
   return state.data;
 };
+export const selectorPostById = (state: postsState, id: String): Post[] => {
+  return state.data.filter(post => post.id === id);
+};
+export const selectorPostsAllFromLatest = (state: postsState): Post[] => {
+  return state.data.sort(
+    (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+  );
+};
 export const selectorPostsPending = (state: postsState): Boolean => {
   return state.request.pending;
 };
@@ -32,7 +40,10 @@ export const selectorPostsError = (state: postsState): Boolean => {
   return state.request.error;
 };
 export const selectorPostsSuccess = (state: postsState): Boolean => {
-  return state.request.succes;
+  return state.request.success;
+};
+export const selectorPostsPostSuccess = (state: postsState): Boolean => {
+  return state.request.postSuccess;
 };
 export const selectorPostsGetOne = (state: postsState): Post => {
   return state.singlePost[0];
@@ -62,8 +73,17 @@ export const postsGetOne = (post: Post): ActionTypes => ({
   payload: post
 });
 
+export const postsPostPutSuccess = (success: Boolean): ActionTypes => ({
+  type: types.POSTS_ADD_ONE,
+  payload: success
+});
+
 export const postsResetSinglePost = (): ActionTypes => ({
   type: types.POSTS_RESET_SINGLE_POST
+});
+
+export const resetRequestData = (): ActionTypes => ({
+  type: types.RESET_REQUEST_DATA
 });
 
 // THUNKS
@@ -71,7 +91,7 @@ export const postsFetchAll = () => {
   return async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(postsStartRequest());
     try {
-      await new Promise((res, rej) => setTimeout(res, 1000));
+      await new Promise((res, rej) => setTimeout(res, 500));
       let response = await axios.get(API_URL + 'posts');
       let data = await response.data;
 
@@ -88,7 +108,6 @@ export const postsFetchOneById = (id: string) => {
     dispatch(postsStartRequest());
     dispatch(postsResetSinglePost());
     try {
-      await new Promise((res, rej) => setTimeout(res, 1000));
       let response = await axios.get(API_URL + `post/${id}`);
       let data = await response.data;
       dispatch(postsGetOne(data));
@@ -99,25 +118,73 @@ export const postsFetchOneById = (id: string) => {
   };
 };
 
+export const postsAddPostThunk = (post: Post) => {
+  return async (dispatch: Dispatch<ActionTypes>) => {
+    try {
+      dispatch(postsStartRequest());
+
+      await new Promise((res, rej) => setTimeout(res, 1000));
+
+      let response = await axios.post(API_URL + 'posts', post);
+      dispatch(postsEndRequest());
+      dispatch(postsPostPutSuccess(true));
+    } catch (err) {
+      dispatch(postsError(err.message));
+    }
+  };
+};
+
+export const postsEditPostThunk = (
+  id: String,
+  data: { title: String; content: String; author: String }
+) => {
+  return async (dispatch: Dispatch<ActionTypes>) => {
+    try {
+      dispatch(postsStartRequest());
+
+      await new Promise((res, rej) => setTimeout(res, 1000));
+
+      let response = await axios.put(API_URL + `post/${id}`, data);
+      dispatch(postsEndRequest());
+      dispatch(postsPostPutSuccess(true));
+    } catch (err) {
+      dispatch(postsError(err.message));
+    }
+  };
+};
+
+// REDUCERS
+
 interface postsState {
   data: Post[];
   singlePost: Post[];
   request: {
     pending: boolean;
     error: Boolean;
-    succes: Boolean;
+    success: Boolean;
+    postSuccess: Boolean;
     errorMsg: string | null;
   };
 }
 
-// REDUCERS
 const initState: postsState = {
   data: [],
-  singlePost: [],
+  singlePost: [
+    {
+      title: '',
+      author: '',
+      content: '',
+      id: '',
+      _id: '',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+  ],
   request: {
     pending: false,
     error: false,
-    succes: false,
+    postSuccess: false,
+    success: false,
     errorMsg: null
   }
 };
@@ -131,6 +198,11 @@ export function postsReducer(state = initState, action: ActionTypes) {
         ...state,
         singlePost: [action.payload]
       };
+    case types.POSTS_ADD_ONE:
+      return {
+        ...state,
+        request: { ...state.request, postSuccess: action.payload }
+      };
     case types.POSTS_RESET_SINGLE_POST:
       return { ...state, singlePost: [] };
     case types.POSTS_START_REQUEST:
@@ -139,7 +211,8 @@ export function postsReducer(state = initState, action: ActionTypes) {
         request: {
           ...state.request,
           pending: true,
-          succes: false,
+          success: false,
+          postSuccess: false,
           error: false
         }
       };
@@ -150,7 +223,9 @@ export function postsReducer(state = initState, action: ActionTypes) {
           ...state.request,
           pending: false,
           error: false,
-          succes: true
+          success: true,
+          postSuccess: false,
+          errorMsg: ''
         }
       };
     case types.POSTS_ERROR:
@@ -158,10 +233,22 @@ export function postsReducer(state = initState, action: ActionTypes) {
         ...state,
         request: {
           ...state.request,
-          succes: false,
+          success: false,
+          postSuccess: false,
           error: true,
           pending: false,
           errorMsg: action.payload
+        }
+      };
+    case types.RESET_REQUEST_DATA:
+      return {
+        ...state,
+        request: {
+          pending: false,
+          success: false,
+          error: false,
+          errorMsg: '',
+          postSuccess: false
         }
       };
     default:

@@ -1,24 +1,21 @@
 import React from 'react';
-import { Post } from '../../../types/post';
 
 import PostsList from '../PostsList/PostsList';
 import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
 
-interface IProps {
-  postsGetAll: Function;
-  posts: Post[];
-  pending: Boolean;
-  error: Boolean;
-  success: Boolean;
-  errorMsg: string;
-}
+import { stateToProps, dispatchToProps } from './PostsContainer';
+
+interface IProps {}
 
 interface IState {}
 
-class Posts extends React.Component<IProps, IState> {
+type Props = stateToProps & dispatchToProps & IProps;
+
+class Posts extends React.Component<Props, IState> {
   componentDidMount() {
-    const { postsGetAll } = this.props;
+    const { postsGetAll, resetRequestData } = this.props;
+    resetRequestData();
     postsGetAll();
   }
 
@@ -33,10 +30,11 @@ class Posts extends React.Component<IProps, IState> {
 
     if (pending || (!success && posts.length === 0)) return <Spinner></Spinner>;
 
+    if (!success) return <Spinner></Spinner>;
+
     if (!pending && success && !error && posts.length > 0)
       return (
         <div>
-          {pending && <Spinner />}
           <PostsList posts={posts} />
         </div>
       );

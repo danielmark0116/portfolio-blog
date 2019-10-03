@@ -11,4 +11,12 @@ router.get('/posts', postController.getPosts);
 // desc: get ONE the post by ID
 router.get('/post/:id', postController.getPostById);
 
+// POST
+// desc: Add post
+router.post('/posts', postController.addPost);
+
+// PUT
+// desc: Edit post
+router.put('/post/:id', postController.editPost);
+
 module.exports = router;
