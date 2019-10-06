@@ -5,7 +5,6 @@ import { Dispatch } from 'redux';
 import axios from 'axios';
 import { API_URL } from '../config';
 import { setTimeout } from 'timers';
-import { AppState } from './store';
 
 // NAME CREATORS
 const reducerName = 'posts';
@@ -151,12 +150,28 @@ export const postsFetchPage = (
 
 export const postsFetchOneById = (id: string) => {
   return async (dispatch: Dispatch<ActionTypes>) => {
-    dispatch(postsStartRequest());
     dispatch(postsResetSinglePost());
+    dispatch(postsStartRequest());
     try {
       let response = await axios.get(API_URL + `post/${id}`);
       let data = await response.data;
       dispatch(postsGetOne(data));
+      dispatch(postsEndRequest());
+    } catch (err) {
+      dispatch(postsError(err.message));
+    }
+  };
+};
+
+export const postsFetchRandom = () => {
+  return async (dispatch: Dispatch<ActionTypes>) => {
+    dispatch(postsResetSinglePost());
+    dispatch(postsStartRequest());
+    try {
+      new Promise((res, rej) => setTimeout(res, 1000));
+      let response = await axios.get(API_URL + 'post/random');
+      let data = await response.data;
+      dispatch(postsGetOne(data.randomPost));
       dispatch(postsEndRequest());
     } catch (err) {
       dispatch(postsError(err.message));

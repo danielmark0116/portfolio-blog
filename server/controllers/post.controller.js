@@ -49,6 +49,23 @@ exports.getPostById = async (req, res) => {
   }
 };
 
+exports.getRandomPost = async (req, res) => {
+  try {
+    let postsCount = await Post.countDocuments();
+    let randomIndex = Math.floor(Math.random() * postsCount);
+    let randomPost = await Post.findOne().skip(randomIndex);
+
+    res.json({
+      randomPost
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      errorMsg: err
+    });
+  }
+};
+
 exports.editPost = async (req, res) => {
   try {
     let response = await Post.findOneAndUpdate({ id: req.params.id }, req.body);

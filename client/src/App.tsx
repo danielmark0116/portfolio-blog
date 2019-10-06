@@ -6,6 +6,7 @@ import MainLayout from './components/layout/MainLayout/MainLayout';
 
 import Home from './components/pages/Home/HomePage';
 import Posts from './components/pages/Posts/PostsPage';
+import PostRandom from './components/pages/RandomPost/RandomPostPage';
 import PostPage from './components/pages/Post/PostPage';
 import PostEditPage from './components/pages/EditPost/PostEditPage';
 import AddPost from './components/pages/AddPost/AddPostPage';
@@ -18,6 +19,7 @@ class App extends Component<{}, {}> {
       <MainLayout>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/post/random" exact component={PostRandom} />
           <Route path="/posts" exact component={Posts} />
           <Route path="/posts/new" exact component={AddPost} />
           <Route path="/posts/:id" exact component={PostPage} />

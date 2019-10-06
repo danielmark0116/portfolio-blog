@@ -92,12 +92,9 @@ class PostForm extends React.Component<IProps, IState> {
   handleEditor = (text: string) => {
     const { post } = this.state;
 
-    this.setState(
-      {
-        post: { ...post, content: text }
-      },
-      () => console.log(this.state.post.content)
-    );
+    this.setState({
+      post: { ...post, content: text }
+    });
   };
 
   render() {

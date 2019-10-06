@@ -13,7 +13,9 @@ import {
   postsFetchPage,
   selectorPostsAll,
   selectorPageCount,
-  selectorActivePage
+  selectorActivePage,
+  selectorPostsGetOne,
+  postsFetchRandom
 } from '../../../redux/postsRedux';
 
 import { Post } from '../../../types/post';
@@ -22,10 +24,12 @@ interface ownProps {
   initPage?: number;
   postsPerPage?: number | null;
   pagination?: Boolean;
+  random?: Boolean;
 }
 
 export interface stateToProps {
   posts: Post[];
+  singlePost: Post;
   pending: Boolean;
   error: Boolean;
   success: Boolean;
@@ -35,15 +39,18 @@ export interface stateToProps {
   initPage?: number;
   postsPerPage?: number | null;
   pagination?: Boolean;
+  random?: Boolean;
 }
 
 export interface dispatchToProps {
   postsGetPage: Function;
+  postsGetRandom: Function;
   resetRequestData: Function;
 }
 
 const mapStateToProps = (state: AppState, ownProps: ownProps) => ({
   posts: selectorPostsAll(state.postsReducer),
+  singlePost: selectorPostsGetOne(state.postsReducer),
   pending: selectorPostsPending(state.postsReducer),
   error: selectorPostsError(state.postsReducer),
   success: selectorPostsSuccess(state.postsReducer),
@@ -52,7 +59,8 @@ const mapStateToProps = (state: AppState, ownProps: ownProps) => ({
   activePage: selectorActivePage(state.postsReducer),
   initPage: ownProps.initPage,
   postsPerPage: ownProps.postsPerPage,
-  pagination: ownProps.pagination
+  pagination: ownProps.pagination,
+  random: ownProps.random
 });
 
 const mapDispatchToProps = (
@@ -60,7 +68,8 @@ const mapDispatchToProps = (
 ) => ({
   postsGetPage: (page: number, postsPerPage: number) =>
     dispatch(postsFetchPage(page, postsPerPage)),
-  resetRequestData: () => dispatch(resetRequestData())
+  resetRequestData: () => dispatch(resetRequestData()),
+  postsGetRandom: () => dispatch(postsFetchRandom())
 });
 
 export default connect(

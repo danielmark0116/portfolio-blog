@@ -16,21 +16,34 @@ type Props = stateToProps & dispatchToProps & IProps;
 class Posts extends React.Component<Props, IState> {
   static defaultProps = {
     initPage: 1,
-    pagination: true
+    pagination: true,
+    random: false
   };
 
   componentDidMount() {
     const {
       postsGetPage,
+      postsGetRandom,
       resetRequestData,
       initPage,
-      postsPerPage
+      postsPerPage,
+      random
     } = this.props;
 
     resetRequestData();
-    postsPerPage
-      ? postsGetPage(initPage, postsPerPage)
-      : postsGetPage(initPage);
+
+    // random && postsGetRandom();
+    // postsPerPage
+    //   ? postsGetPage(initPage, postsPerPage)
+    //   : postsGetPage(initPage);
+
+    if (!random) {
+      postsPerPage
+        ? postsGetPage(initPage, postsPerPage)
+        : postsGetPage(initPage);
+    } else {
+      postsGetRandom();
+    }
   }
 
   pageChange = (pageNo: number) => {
@@ -43,6 +56,8 @@ class Posts extends React.Component<Props, IState> {
     const {
       activePage,
       posts,
+      singlePost,
+      random,
       pending,
       error,
       success,
@@ -54,17 +69,24 @@ class Posts extends React.Component<Props, IState> {
     if (!pending && !success && error)
       return <Alert variant={'error'}>{errorMsg}</Alert>;
 
-    if (!pending && success && !error && posts.length === 0)
-      return <Alert variant={'info'}>No posts...</Alert>;
+    if (random) {
+      if (!pending && success && !error && !singlePost)
+        return <Alert variant={'info'}>No posts...</Alert>;
+    }
+
+    if (!random) {
+      if (!pending && success && !error && posts.length === 0)
+        return <Alert variant={'info'}>No posts...</Alert>;
+    }
 
     if (pending || (!success && posts.length === 0)) return <Spinner></Spinner>;
 
     if (!success) return <Spinner></Spinner>;
 
-    if (!pending && success && !error && posts.length > 0)
+    if (!pending && success && !error && (posts.length > 0 || singlePost))
       return (
         <div>
-          <PostsList posts={posts} />
+          <PostsList posts={random ? [singlePost] : posts} />
           {pagination && (
             <Pagination
               activePage={activePage}

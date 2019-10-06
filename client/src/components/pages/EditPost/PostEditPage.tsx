@@ -31,7 +31,6 @@ class PostEditPage extends Component<IProps, {}> {
   componentDidMount() {
     this.props.resetRequestData();
     this.props.getPost(this.props.match.params.id);
-    console.log(this.props.match.params.id);
   }
 
   render() {
