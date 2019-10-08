@@ -20,6 +20,14 @@ router.get('/post/random', sanitize, postController.getRandomPost);
 // desc: get ONE the post by ID
 router.get('/post/:id', sanitize, postController.getPostById);
 
+// GET
+// desc: get post's LIKES
+router.get('/post/likes/:id', sanitize, postController.getPostLikes);
+
+// PUT
+// desc: get post's LIKES
+router.put('/post/likes/:id/:option', sanitize, postController.putPostLikes);
+
 // POST
 // desc: Add post
 router.post('/posts', sanitize, postController.addPost);

@@ -3,7 +3,6 @@ import { ActionTypes } from './actionTypes';
 import { Post } from '../types/post';
 import { Dispatch } from 'redux';
 import axios from 'axios';
-import { setTimeout } from 'timers';
 
 // NAME CREATORS
 const reducerName = 'posts';
@@ -70,6 +69,10 @@ export const postsGetPage = (payload: {
   payload
 });
 
+export const postsLike = (): ActionTypes => ({
+  type: types.POSTS_LIKE
+});
+
 export const postsStartRequest = (): ActionTypes => ({
   type: types.POSTS_START_REQUEST
 });
@@ -106,7 +109,7 @@ export const postsFetchAll = () => {
   return async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(postsStartRequest());
     try {
-      let response = await axios.get('/api/' + 'posts');
+      let response = await axios.get('/api/posts');
       let data = await response.data;
 
       dispatch(postsGetAll(data));
@@ -128,7 +131,7 @@ export const postsFetchPage = (
 
     try {
       let response = await axios.get(
-        '/api/' + `posts/range/${startIndex}/${postsPerPage}`
+        `/api/posts/range/${startIndex}/${postsPerPage}`
       );
       const payload = {
         postsPerPage,
@@ -149,7 +152,7 @@ export const postsFetchOneById = (id: string) => {
     dispatch(postsResetSinglePost());
     dispatch(postsStartRequest());
     try {
-      let response = await axios.get('/api/' + `post/${id}`);
+      let response = await axios.get(`/api/post/${id}`);
       let data = await response.data;
       dispatch(postsGetOne(data));
       dispatch(postsEndRequest());
@@ -164,10 +167,21 @@ export const postsFetchRandom = () => {
     dispatch(postsResetSinglePost());
     dispatch(postsStartRequest());
     try {
-      let response = await axios.get('/api/' + 'post/random');
+      let response = await axios.get('/api/post/random');
       let data = await response.data;
       dispatch(postsGetOne(data.randomPost));
       dispatch(postsEndRequest());
+    } catch (err) {
+      dispatch(postsError(err.message));
+    }
+  };
+};
+
+export const postsLikeThunk = (id: string, value: number) => {
+  return async (dispatch: Dispatch<ActionTypes>) => {
+    try {
+      let response = await axios.put(`/api/post/likes/${id}/${value}`);
+      dispatch(postsLike());
     } catch (err) {
       dispatch(postsError(err.message));
     }
@@ -179,7 +193,7 @@ export const postsAddPostThunk = (post: Post) => {
     try {
       dispatch(postsStartRequest());
 
-      let response = await axios.post('/api/' + 'posts', post);
+      let response = await axios.post('/api/posts', post);
       dispatch(postsEndRequest());
       dispatch(postsPostPutSuccess(true));
     } catch (err) {
@@ -196,7 +210,7 @@ export const postsEditPostThunk = (
     try {
       dispatch(postsStartRequest());
 
-      let response = await axios.put('/api/' + `post/${id}`, data);
+      let response = await axios.put(`/api/post/${id}`, data);
       dispatch(postsEndRequest());
       dispatch(postsPostPutSuccess(true));
     } catch (err) {
@@ -234,6 +248,7 @@ const initState: postsState = {
       content: '',
       id: '',
       _id: '',
+      likes: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     }

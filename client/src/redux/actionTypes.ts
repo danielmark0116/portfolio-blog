@@ -4,6 +4,7 @@ export const POSTS_GET_ALL = 'POSTS_GET_ALL';
 export const POSTS_GET_PAGE = 'POSTS_GET_PAGE';
 export const POSTS_GET_ONE = 'POSTS_GET_ONE';
 export const POSTS_ADD_ONE = 'POSTS_ADD_ONE';
+export const POSTS_LIKE = 'POSTS_LIKE';
 export const POSTS_RESET_SINGLE_POST = 'POSTS_RESET_SINGLE_POST';
 export const POSTS_START_REQUEST = 'POSTS_START_REQUEST';
 export const POSTS_END_REQUEST = 'POSTS_END_REQUEST';
@@ -37,6 +38,10 @@ interface postsAddOneActionType {
   payload: Boolean;
 }
 
+interface postsLikesActionType {
+  type: typeof POSTS_LIKE;
+}
+
 interface postsStartRequestActionType {
   type: typeof POSTS_START_REQUEST;
 }
@@ -67,4 +72,5 @@ export type ActionTypes =
   | postsResetSinglePostActionType
   | postsAddOneActionType
   | resetRequestDataActionType
-  | postsGetPageActionType;
+  | postsGetPageActionType
+  | postsLikesActionType;

@@ -17,6 +17,11 @@ const Post = new mongoose.Schema(
     author: {
       type: 'String',
       require: true
+    },
+    likes: {
+      type: 'Number',
+      require: true,
+      default: 0
     }
   },
   { timestamps: true }

@@ -8,7 +8,7 @@ exports.getPosts = async function(req, res) {
   } catch (e) {
     res.status(500).json({
       error: true,
-      errorMsg: e
+      errorMsg: e.message
     });
   }
 };
@@ -31,7 +31,7 @@ exports.getRange = async function(req, res) {
   } catch (err) {
     res.status(500).json({
       error: true,
-      errorMsg: err
+      errorMsg: err.message
     });
   }
 };
@@ -44,7 +44,42 @@ exports.getPostById = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       error: true,
-      errorMsg: err
+      errorMsg: err.message
+    });
+  }
+};
+
+exports.getPostLikes = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    let response = await Post.findOne({ id });
+
+    res.json(response.likes);
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      errorMsg: err.message
+    });
+  }
+};
+
+exports.putPostLikes = async (req, res) => {
+  const id = req.params.id;
+  const option = req.params.option;
+
+  try {
+    let response = await Post.findOne({ id: id });
+
+    response.likes += parseInt(option);
+
+    let updated = await response.save();
+
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      errorMsg: err.message
     });
   }
 };
@@ -61,7 +96,7 @@ exports.getRandomPost = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       error: true,
-      errorMsg: err
+      errorMsg: err.message
     });
   }
 };

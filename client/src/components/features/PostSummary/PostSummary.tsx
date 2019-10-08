@@ -9,15 +9,17 @@ import Button from '../../common/Button/Button';
 import SmallTitle from '../../common/SmallTitle/SmallTitle';
 import HtmlBox from '../../common/HtmlBox/HtmlBox';
 import TextBlock from '../../common/TextBlock/TextBlock';
+import Likes from '../Likes/LikesContainer';
 
 import './PostSummary.scss';
 
 const PostSummary = (props: Post) => {
-  const { title, content, id, author, createdAt } = props;
+  const { title, content, id, author, createdAt, likes } = props;
 
   return (
     <article className="post-summary">
       <SmallTitle>{title}</SmallTitle>
+      <Likes id={id} likes={likes} />
       <TextBlock role="secondary">{`By: ${author}`}</TextBlock>
       <TextBlock role="secondary">{`Added: ${new Date(
         createdAt

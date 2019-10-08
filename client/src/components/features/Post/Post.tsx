@@ -6,6 +6,7 @@ import PageTitle from '../../common/PageTitle/PageTitle';
 import HtmlBox from '../../common/HtmlBox/HtmlBox';
 import TextBlock from '../../common/TextBlock/TextBlock';
 import Spinner from '../../common/Spinner/Spinner';
+import Likes from '../Likes/LikesContainer';
 
 import { stateToProps, dispatchToProps } from './PostContainer';
 import { RouteComponentProps } from 'react-router';
@@ -47,13 +48,12 @@ class Post extends Component<Props, IState> {
             >
               Share on Facebook
             </ShareButton>
-
             <TextBlock role="secondary">{`By: ${singlePost.author}`}</TextBlock>
             <TextBlock role="secondary">{`Added: ${new Date(
               singlePost.createdAt
             ).toLocaleString()}`}</TextBlock>
             <HtmlBox>{singlePost.content}</HtmlBox>
-
+            <Likes id={singlePost.id} likes={singlePost.likes} />
             <Comments
               width="100%"
               href={`${config.BASE_URL}${location.pathname}`}
