@@ -9,17 +9,16 @@ const rootReducer = combineReducers({
 });
 
 const middlewareSetup = () => {
-  if (process.env.MODE === 'production') {
+  if (process.env.NODE_ENV === 'production') {
     return compose(
       applyMiddleware(thunk as ThunkMiddleware<AppState, ActionTypes>)
     );
-  } else {
-    return compose(
-      applyMiddleware(thunk as ThunkMiddleware<AppState, ActionTypes>),
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-        (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-    );
   }
+  return compose(
+    applyMiddleware(thunk as ThunkMiddleware<AppState, ActionTypes>),
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+      (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+  );
 };
 
 export const store = createStore(rootReducer, middlewareSetup());
