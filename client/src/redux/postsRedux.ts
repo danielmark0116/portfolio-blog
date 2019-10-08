@@ -3,7 +3,6 @@ import { ActionTypes } from './actionTypes';
 import { Post } from '../types/post';
 import { Dispatch } from 'redux';
 import axios from 'axios';
-import { API_URL } from '../config';
 import { setTimeout } from 'timers';
 
 // NAME CREATORS
