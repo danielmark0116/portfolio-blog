@@ -20,7 +20,7 @@ app.use(express.json());
 app.use('/api', postRoutes);
 
 if (process.env.MODE === 'production') {
-  app.get('*', (req, res) => {
+  app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname + '../client/build/index.html'));
   });
 }
