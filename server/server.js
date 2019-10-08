@@ -19,9 +19,13 @@ app.use(express.json());
 
 app.use('/api', postRoutes);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '../client/build/index.html'));
-});
+if (process.env.MODE === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '../client/build/index.html'));
+  });
+}
+
+console.log(process.env.MODE);
 
 app.listen(config.PORT, () =>
   console.log(`Server running on port ${config.PORT}`)
