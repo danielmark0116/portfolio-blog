@@ -107,7 +107,7 @@ export const postsFetchAll = () => {
   return async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(postsStartRequest());
     try {
-      let response = await axios.get(API_URL + 'posts');
+      let response = await axios.get('/api/' + 'posts');
       let data = await response.data;
 
       dispatch(postsGetAll(data));
@@ -129,7 +129,7 @@ export const postsFetchPage = (
 
     try {
       let response = await axios.get(
-        API_URL + `posts/range/${startIndex}/${postsPerPage}`
+        '/api/' + `posts/range/${startIndex}/${postsPerPage}`
       );
       const payload = {
         postsPerPage,
@@ -150,7 +150,7 @@ export const postsFetchOneById = (id: string) => {
     dispatch(postsResetSinglePost());
     dispatch(postsStartRequest());
     try {
-      let response = await axios.get(API_URL + `post/${id}`);
+      let response = await axios.get('/api/' + `post/${id}`);
       let data = await response.data;
       dispatch(postsGetOne(data));
       dispatch(postsEndRequest());
@@ -165,7 +165,7 @@ export const postsFetchRandom = () => {
     dispatch(postsResetSinglePost());
     dispatch(postsStartRequest());
     try {
-      let response = await axios.get(API_URL + 'post/random');
+      let response = await axios.get('/api/' + 'post/random');
       let data = await response.data;
       dispatch(postsGetOne(data.randomPost));
       dispatch(postsEndRequest());
@@ -180,7 +180,7 @@ export const postsAddPostThunk = (post: Post) => {
     try {
       dispatch(postsStartRequest());
 
-      let response = await axios.post(API_URL + 'posts', post);
+      let response = await axios.post('/api/' + 'posts', post);
       dispatch(postsEndRequest());
       dispatch(postsPostPutSuccess(true));
     } catch (err) {
@@ -197,7 +197,7 @@ export const postsEditPostThunk = (
     try {
       dispatch(postsStartRequest());
 
-      let response = await axios.put(API_URL + `post/${id}`, data);
+      let response = await axios.put('/api/' + `post/${id}`, data);
       dispatch(postsEndRequest());
       dispatch(postsPostPutSuccess(true));
     } catch (err) {
