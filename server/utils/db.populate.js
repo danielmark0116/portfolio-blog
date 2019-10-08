@@ -27,6 +27,7 @@ module.exports = function() {
 
   data.forEach(i => {
     Post.findOne({ id: i.id }, (err, post) => {
+      if (err) throw err;
       if (!post) {
         Post.create(i);
         console.log('Populating database...');

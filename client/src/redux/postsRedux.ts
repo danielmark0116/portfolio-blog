@@ -107,7 +107,6 @@ export const postsFetchAll = () => {
   return async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(postsStartRequest());
     try {
-      await new Promise((res, rej) => setTimeout(res, 500));
       let response = await axios.get(API_URL + 'posts');
       let data = await response.data;
 
@@ -132,8 +131,6 @@ export const postsFetchPage = (
       let response = await axios.get(
         API_URL + `posts/range/${startIndex}/${postsPerPage}`
       );
-      new Promise((res, rej) => setTimeout(res, 500));
-
       const payload = {
         postsPerPage,
         presentPage: page,
@@ -168,7 +165,6 @@ export const postsFetchRandom = () => {
     dispatch(postsResetSinglePost());
     dispatch(postsStartRequest());
     try {
-      new Promise((res, rej) => setTimeout(res, 1000));
       let response = await axios.get(API_URL + 'post/random');
       let data = await response.data;
       dispatch(postsGetOne(data.randomPost));
@@ -183,8 +179,6 @@ export const postsAddPostThunk = (post: Post) => {
   return async (dispatch: Dispatch<ActionTypes>) => {
     try {
       dispatch(postsStartRequest());
-
-      await new Promise((res, rej) => setTimeout(res, 1000));
 
       let response = await axios.post(API_URL + 'posts', post);
       dispatch(postsEndRequest());
@@ -202,8 +196,6 @@ export const postsEditPostThunk = (
   return async (dispatch: Dispatch<ActionTypes>) => {
     try {
       dispatch(postsStartRequest());
-
-      await new Promise((res, rej) => setTimeout(res, 1000));
 
       let response = await axios.put(API_URL + `post/${id}`, data);
       dispatch(postsEndRequest());

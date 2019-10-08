@@ -4,7 +4,8 @@ const populateDb = require('./utils/db.populate');
 
 exports.connectToDb = function() {
   mongoose.connect(config.DB, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   });
 
   let db = mongoose.connection;
