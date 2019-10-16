@@ -30,6 +30,7 @@ if (process.env.MODE === 'production') {
   app.use(`/`, (req, res) => {
     console.log('visited blog');
     // res.send('hello from main blog http/blog/');
+    // res.send('hello from main blog http/blog/');
     res.sendFile(path.join(__dirname + '/../client/build/index.html'));
   });
 } else {
