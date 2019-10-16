@@ -11,7 +11,6 @@ exports.connectToDb = function() {
   let db = mongoose.connection;
   db.once('open', () => {
     console.log('Connected to the database');
-    console.log('DB: ' + config.DB);
     populateDb();
   });
   db.on('error', err => console.log('Error: ', err));

@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
 });
 
 const middlewareSetup = () => {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.REACT_APP_MODE === 'production') {
     return compose(
       applyMiddleware(thunk as ThunkMiddleware<AppState, ActionTypes>)
     );

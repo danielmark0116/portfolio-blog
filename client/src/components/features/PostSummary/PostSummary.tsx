@@ -28,9 +28,9 @@ const PostSummary = (props: Post) => {
       <Link to={`/posts/${id}`}>
         <Button variant="primary">Read more</Button>
       </Link>
-      <Link to={`/posts/edit/${id}`}>
+      {/* <Link to={`/posts/edit/${id}`}>
         <Button variant="danger">Edit post</Button>
-      </Link>
+      </Link> */}
     </article>
   );
 };

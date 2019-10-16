@@ -1,11 +1,15 @@
+require('dotenv').config();
+
 if (process.env.MODE === 'production') {
   module.exports = {
-    PORT: process.env.PORT || 8000,
-    DB: process.env.DB
+    PORT: process.env.PORT || 8001,
+    DB: process.env.DB,
+    prefix: '/blog'
   };
 } else {
   module.exports = {
-    PORT: 8000,
-    DB: 'mongodb://localhost:27017/blog-mern'
+    PORT: process.env.PORT || 8001,
+    DB: 'mongodb://localhost:27017/blog-mern',
+    prefix: ''
   };
 }
