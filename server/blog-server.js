@@ -38,9 +38,7 @@ if (process.env.MODE === 'production') {
     // res.send('hello from main blog http/blog/');
     // res.send('hello from main blog http/blog/');
     // res.sendFile(path.resolve(__dirname + '/../client/build/index.html'));
-    res.sendFile(
-      express.static(path.join(__dirname, '/../client/build/index.html'))
-    );
+    res.sendFile(path.join(__dirname, '/../client/build/index.html'));
   });
 } else {
   app.get('*', (req, res) => {
