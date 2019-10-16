@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "homepage": "/blog",
   "private": true,
   "dependencies": {
     "@types/jest": "24.0.18",
