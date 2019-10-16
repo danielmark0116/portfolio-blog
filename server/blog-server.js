@@ -29,7 +29,8 @@ if (process.env.MODE === 'production') {
 
   app.get(`${config.prefix}/`, (req, res) => {
     console.log('visited blog');
-    res.sendFile(path.join(__dirname + '/../client/build/index.html'));
+    res.send('hello from main blog http/blog/');
+    // res.sendFile(path.join(__dirname + '/../client/build/index.html'));
   });
 } else {
   app.get('*', (req, res) => {
