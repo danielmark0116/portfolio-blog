@@ -27,10 +27,10 @@ app.use(config.prefix + '/api', postRoutes);
 if (process.env.MODE === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build/')));
 
-  app.get(`${config.prefix}/`, (req, res) => {
+  app.use(`/`, (req, res) => {
     console.log('visited blog');
-    res.send('hello from main blog http/blog/');
-    // res.sendFile(path.join(__dirname + '/../client/build/index.html'));
+    // res.send('hello from main blog http/blog/');
+    res.sendFile(path.join(__dirname + '/../client/build/index.html'));
   });
 } else {
   app.get('*', (req, res) => {
