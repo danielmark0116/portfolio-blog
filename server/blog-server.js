@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(config.prefix + '/api', postRoutes);
 
 if (process.env.MODE === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build/')));
+  app.use(express.static(path.join(__dirname, '/../client/build/')));
 
   app.use(`/`, (req, res) => {
     console.log('visited blog');
