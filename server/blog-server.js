@@ -23,26 +23,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(config.prefix + '/api', postRoutes);
-// app.use(
-//   express.static(path.resolve(__dirname + '/..' + '/client' + '/build/'))
-// );
-// console.log(path.resolve(__dirname + '/..' + '/client' + '/build'));
-// console.log(path.resolve(__dirname + '/..' + '/client' + '/build'));
-// console.log(path.resolve(__dirname + '/..' + '/client' + '/build'));
 
-// app.use(express.static(path.join(__dirname, '/../client/build/')));
-
-// app.use('/blog', express.static(path.join(__dirname, '/../client/build')));
-const path2 = '../client/build';
-app.use(express.static(path2));
-app.use('/blog', express.static(path2));
+const staticFilePath = '../client/build';
+app.use(express.static(staticFilePath));
+app.use('/blog', express.static(staticFilePath));
 
 if (process.env.MODE === 'production') {
   app.use('/', (req, res) => {
-    // console.log('visited blog');
-    // res.send('hello from main blog http/blog/');
-    // res.send('hello from main blog http/blog/');
-    // res.sendFile(path.resolve(__dirname + '/../client/build/index.html'));
     res.sendFile(path.join(__dirname, '/../client/build/index.html'));
   });
 } else {

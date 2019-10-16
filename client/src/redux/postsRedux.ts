@@ -4,6 +4,8 @@ import { Post } from '../types/post';
 import { Dispatch } from 'redux';
 import axios from 'axios';
 
+import { URL_PREFIX } from '../config';
+
 // NAME CREATORS
 const reducerName = 'posts';
 const createActionName = (name: string) => `app/${reducerName}/${name}`;
@@ -109,7 +111,7 @@ export const postsFetchAll = () => {
   return async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(postsStartRequest());
     try {
-      let response = await axios.get('/blog/api/posts');
+      let response = await axios.get(`${URL_PREFIX}/api/posts`);
       let data = await response.data;
 
       dispatch(postsGetAll(data));
@@ -131,7 +133,7 @@ export const postsFetchPage = (
 
     try {
       let response = await axios.get(
-        `/blog/api/posts/range/${startIndex}/${postsPerPage}`
+        `${URL_PREFIX}/api/posts/range/${startIndex}/${postsPerPage}`
       );
       const payload = {
         postsPerPage,
@@ -152,7 +154,7 @@ export const postsFetchOneById = (id: string) => {
     dispatch(postsResetSinglePost());
     dispatch(postsStartRequest());
     try {
-      let response = await axios.get(`/blog/api/post/${id}`);
+      let response = await axios.get(`${URL_PREFIX}/api/post/${id}`);
       let data = await response.data;
       dispatch(postsGetOne(data));
       dispatch(postsEndRequest());
@@ -167,7 +169,7 @@ export const postsFetchRandom = () => {
     dispatch(postsResetSinglePost());
     dispatch(postsStartRequest());
     try {
-      let response = await axios.get('/blog/api/post/random');
+      let response = await axios.get(`${URL_PREFIX}/api/post/random`);
       let data = await response.data;
       dispatch(postsGetOne(data.randomPost));
       dispatch(postsEndRequest());
@@ -180,7 +182,9 @@ export const postsFetchRandom = () => {
 export const postsLikeThunk = (id: string, value: number) => {
   return async (dispatch: Dispatch<ActionTypes>) => {
     try {
-      let response = await axios.put(`/blog/api/post/likes/${id}/${value}`);
+      let response = await axios.put(
+        `${URL_PREFIX}/api/post/likes/${id}/${value}`
+      );
       dispatch(postsLike());
     } catch (err) {
       dispatch(postsError(err.message));
@@ -193,7 +197,7 @@ export const postsAddPostThunk = (post: Post) => {
     try {
       dispatch(postsStartRequest());
 
-      let response = await axios.post('/blog/api/posts', post);
+      let response = await axios.post(`${URL_PREFIX}/api/posts`, post);
       dispatch(postsEndRequest());
       dispatch(postsPostPutSuccess(true));
     } catch (err) {
@@ -210,7 +214,7 @@ export const postsEditPostThunk = (
     try {
       dispatch(postsStartRequest());
 
-      let response = await axios.put(`/blog/api/post/${id}`, data);
+      let response = await axios.put(`${URL_PREFIX}/api/post/${id}`, data);
       dispatch(postsEndRequest());
       dispatch(postsPostPutSuccess(true));
     } catch (err) {
