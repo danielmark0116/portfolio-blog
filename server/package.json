@@ -16,7 +16,7 @@
     "uuid": "3.3.2"
   },
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js"
+    "start": "node blog-server.js",
+    "server": "nodemon blog-server.js"
   }
 }
