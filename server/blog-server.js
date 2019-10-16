@@ -33,7 +33,7 @@ app.use(config.prefix + '/api', postRoutes);
 // app.use(express.static(path.join(__dirname, '/../client/build/')));
 
 // app.use('/blog', express.static(path.join(__dirname, '/../client/build')));
-app.use(express.static(path.join(__dirname, '/test')));
+app.use(express.static('test'));
 
 if (process.env.MODE === 'production') {
   app.use('/', (req, res) => {
