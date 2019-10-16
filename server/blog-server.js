@@ -23,15 +23,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(config.prefix + '/api', postRoutes);
+app.use(express.static(path.resolve(__dirname + '/..' + '/client' + '/build')));
+console.log(path.resolve(__dirname + '/..' + '/client' + '/build'));
 
 if (process.env.MODE === 'production') {
-  app.use(express.static(path.resolve(__dirname, '/../client/build/')));
-
-  app.use(`/blog/`, (req, res) => {
-    console.log('visited blog');
+  app.use('*', (req, res) => {
+    // console.log('visited blog');
     // res.send('hello from main blog http/blog/');
     // res.send('hello from main blog http/blog/');
-    res.sendFile(path.resolve(__dirname + '/../client/build/index.html'));
+    // res.sendFile(path.resolve(__dirname + '/../client/build/index.html'));
+    res.sendFile(path.join(__dirname, '/../client/build/index.html'));
   });
 } else {
   app.get('*', (req, res) => {
