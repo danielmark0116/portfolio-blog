@@ -18,11 +18,11 @@ class App extends Component<{}, {}> {
     return (
       <MainLayout>
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/blog/" exact component={Home} />
           {/* <Route path="/post/random" exact component={PostRandom} /> */}
-          <Route path="/posts" exact component={Posts} />
+          <Route path="/blog/posts" exact component={Posts} />
           {/* <Route path="/posts/new" exact component={AddPost} /> */}
-          <Route path="/posts/:id" exact component={PostPage} />
+          <Route path="/blog/posts/:id" exact component={PostPage} />
           {/* <Route path="/posts/edit/:id" exact component={PostEditPage} /> */}
           {/* <Route path="/contact" exact component={Contact} /> */}
           <Route component={NotFound} />

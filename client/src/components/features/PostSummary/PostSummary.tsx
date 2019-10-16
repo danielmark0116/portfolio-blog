@@ -25,7 +25,7 @@ const PostSummary = (props: Post) => {
         createdAt
       ).toLocaleString()}`}</TextBlock>
       <HtmlBox>{cutText(content, 100)}</HtmlBox>
-      <Link to={`/posts/${id}`}>
+      <Link to={`/blog/posts/${id}`}>
         <Button variant="primary">Read more</Button>
       </Link>
       {/* <Link to={`/posts/edit/${id}`}>

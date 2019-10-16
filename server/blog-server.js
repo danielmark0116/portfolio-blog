@@ -25,7 +25,9 @@ app.use(express.json());
 app.use(config.prefix + '/api', postRoutes);
 
 if (process.env.MODE === 'production') {
-  app.get(config.prefix + '/*', (req, res) => {
+  app.use(express.static(path.join(__dirname, '../client/build/')));
+
+  app.get(`${config.prefix}/`, (req, res) => {
     console.log('visited blog');
     res.sendFile(path.join(__dirname + '/../client/build/index.html'));
   });

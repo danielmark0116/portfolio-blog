@@ -9,10 +9,10 @@ class NavBar extends React.Component {
     super(props);
     this.state = {
       links: [
-        { path: '/', title: 'Home' },
+        { path: '/blog/', title: 'Home' },
         // { path: '/post/random', title: 'Random post' },
         // { path: '/posts/new', title: 'Add post' },
-        { path: '/posts', title: 'Posts' }
+        { path: '/blog/posts', title: 'Posts' }
         // { path: '/contact', title: 'Contact' }
       ]
     };
