@@ -30,7 +30,9 @@ app.use(config.prefix + '/api', postRoutes);
 // console.log(path.resolve(__dirname + '/..' + '/client' + '/build'));
 // console.log(path.resolve(__dirname + '/..' + '/client' + '/build'));
 
-app.use(express.static(path.join(__dirname, '/../client/build/')));
+// app.use(express.static(path.join(__dirname, '/../client/build/')));
+
+app.use('/blog', express.static(path.join(__dirname, '/../client/build')));
 
 if (process.env.MODE === 'production') {
   app.use('/', (req, res) => {
