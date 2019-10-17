@@ -9,7 +9,7 @@ import './styles/global.scss';
 import 'animate.css/animate.min.css';
 
 const Root = () => (
-  <Router>
+  <Router basename="/blog">
     <App />
   </Router>
 );
