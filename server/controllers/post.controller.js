@@ -3,7 +3,7 @@ const uuid = require('uuid');
 
 exports.getPosts = async function(req, res) {
   try {
-    let response = await Post.find();
+    let response = await Post.find().sort({ createdAt: 'desc' });
     res.json(response);
   } catch (e) {
     res.status(500).json({
