@@ -127,7 +127,30 @@ exports.addPost = async (req, res) => {
     console.log(e);
     res.status(500).json({
       error: true,
-      errorMsg: e
+      success: false,
+      msg: e
+    });
+  }
+};
+
+exports.deletePostById = async (req, res) => {
+  console.log(req.params.id);
+  try {
+    let postToRemove = await Post.findOne({ id: req.params.id });
+
+    let response = await postToRemove.remove();
+
+    res.json({
+      response,
+      error: false,
+      success: true,
+      msg: 'Deleted Post'
+    });
+  } catch (e) {
+    res.status(500).json({
+      error: true,
+      success: false,
+      msg: e
     });
   }
 };

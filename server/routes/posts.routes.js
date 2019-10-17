@@ -30,7 +30,7 @@ router.get('/post/likes/:id', sanitize, postController.getPostLikes);
 // desc: get post's LIKES
 router.put(
   '/post/likes/:id/:option',
-  //   passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', { session: false }),
   isAdmin,
   sanitize,
   postController.putPostLikes
@@ -40,7 +40,7 @@ router.put(
 // desc: Add post
 router.post(
   '/posts',
-  //   passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', { session: false }),
   isAdmin,
   sanitize,
   postController.addPost
@@ -50,10 +50,20 @@ router.post(
 // desc: Edit post
 router.put(
   '/post/:id',
-  //   passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', { session: false }),
   isAdmin,
   sanitize,
   postController.editPost
+);
+
+// DELETE
+// desc: Delete post
+router.delete(
+  '/post/:id',
+  passport.authenticate('jwt', { session: false }),
+  isAdmin,
+  sanitize,
+  postController.deletePostById
 );
 
 module.exports = router;
