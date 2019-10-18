@@ -42,22 +42,22 @@ class Post extends Component<Props, IState> {
         <div>
           <PageTitle>{singlePost.title}</PageTitle>
           <FacebookProvider appId={config.FACEBOOK_APP_ID}>
-            <ShareButton
+            {/* <ShareButton
               className={style.share_btn}
               href={`${config.BASE_URL}${location.pathname}`}
             >
               Share on Facebook
-            </ShareButton>
+            </ShareButton> */}
             <TextBlock role="secondary">{`By: ${singlePost.author}`}</TextBlock>
             <TextBlock role="secondary">{`Added: ${new Date(
               singlePost.createdAt
             ).toLocaleString()}`}</TextBlock>
             <HtmlBox>{singlePost.content}</HtmlBox>
-            <Likes id={singlePost.id} likes={singlePost.likes} />
+            {/* <Likes id={singlePost.id} likes={singlePost.likes} />
             <Comments
               width="100%"
               href={`${config.BASE_URL}${location.pathname}`}
-            />
+            /> */}
           </FacebookProvider>
         </div>
       );

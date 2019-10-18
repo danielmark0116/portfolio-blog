@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import MainLayout from './components/layout/MainLayout/MainLayout';
 
@@ -18,8 +18,16 @@ class App extends Component<{}, {}> {
     return (
       <MainLayout>
         <Switch>
-          <Route path="/" exact component={Home} />
-          {/* <Route path="/post/random" exact component={PostRandom} /> */}
+          <Route path="/" exact>
+            <Redirect to="/posts"></Redirect>
+          </Route>
+          <Route
+            path="/home"
+            component={() => {
+              window.location.href = 'https://danielgrychtol.com/';
+              return null;
+            }}
+          />
           <Route path="/posts" exact component={Posts} />
           {/* <Route path="/posts/new" exact component={AddPost} /> */}
           <Route path="/posts/:id" exact component={PostPage} />

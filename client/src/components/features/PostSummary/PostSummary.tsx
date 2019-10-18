@@ -19,7 +19,7 @@ const PostSummary = (props: Post) => {
   return (
     <article className="post-summary">
       <SmallTitle>{title}</SmallTitle>
-      <Likes id={id} likes={likes} />
+      {/* <Likes id={id} likes={likes} /> */}
       <TextBlock role="secondary">{`By: ${author}`}</TextBlock>
       <TextBlock role="secondary">{`Added: ${new Date(
         createdAt

@@ -8,7 +8,13 @@ class PostsCounter extends React.Component<IProps, {}> {
   render() {
     const { postsCount } = this.props;
 
-    return <div>Posts amount: {postsCount}</div>;
+    return (
+      <div>
+        {`Skyrocketing number of: ${postsCount} ${
+          parseInt(postsCount) === 1 ? 'post!' : 'posts!'
+        }`}
+      </div>
+    );
   }
 }
 
