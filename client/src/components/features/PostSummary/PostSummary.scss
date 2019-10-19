@@ -1,9 +1,10 @@
 @import '../../../styles/settings.scss';
 
 .post-summary {
-  border-bottom: 1px solid $color-textfield-border;
+  // border-bottom: 1px solid $color-textfield-border;
   padding: $base-size;
-  margin-bottom: $base-size;
+  margin-top: $base-size;
+  margin-bottom: $base-size * 2;
   margin-left: -$base-size;
   transition: 0.2s;
   cursor: pointer;
